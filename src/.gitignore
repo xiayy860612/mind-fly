@@ -1,0 +1,6 @@
+
+# ide settings
+.idea/
+
+# build stuff
+*/target/*

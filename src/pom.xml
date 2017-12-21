@@ -4,15 +4,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>s2u2m.mind-fly</groupId>
-    <artifactId>s2u2m.mind-fly</artifactId>
+    <groupId>s2u2m.mindfly</groupId>
+    <artifactId>s2u2m.mindfly</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
 
     <modules>
-        <module>s2u2m.mind-fly.common</module>
-        <module>s2u2m.mind-fly.web</module>
+        <module>common</module>
+        <module>web</module>
+        <module>auth</module>
     </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.8.RELEASE</version>
+        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+    </parent>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+    </dependencies>
 
 
 </project>

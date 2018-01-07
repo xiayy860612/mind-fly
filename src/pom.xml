@@ -10,9 +10,7 @@
     <version>0.0.1</version>
 
     <modules>
-        <module>common</module>
-        <module>web</module>
-        <module>auth</module>
+        <module>gate</module>
     </modules>
 
     <parent>
@@ -23,7 +21,6 @@
     </parent>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

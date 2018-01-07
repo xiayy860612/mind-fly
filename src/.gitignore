@@ -1,7 +1,0 @@
-
-# ide settings
-.idea/
-*.iml
-
-# build stuff
-*/target/*

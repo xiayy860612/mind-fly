@@ -1,4 +1,4 @@
-package s2u2m.mindfly.auth;
+package s2u2m.mindfly.gate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,15 +10,15 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  * @author xiayy860612
  */
 @SpringBootApplication
-public class AuthMain extends SpringBootServletInitializer {
+public class GateServiceMain extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthMain.class, args);
+		SpringApplication.run(GateServiceMain.class, args);
 	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(AuthMain.class);
+		return application.sources(GateServiceMain.class);
 	}
 
 

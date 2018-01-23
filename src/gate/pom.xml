@@ -12,6 +12,11 @@
     <artifactId>s2u2m.mindfly.gate</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>s2u2m.mindfly</groupId>
+            <artifactId>s2u2m.mindfly.common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
         <dependency>
             <groupId>org.apache.shiro</groupId>

@@ -4,36 +4,35 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>s2u2m.mindfly</groupId>
-    <artifactId>s2u2m.mindfly</artifactId>
-    <packaging>pom</packaging>
+    <groupId>com.s2u2m.mindfly</groupId>
+    <artifactId>mindfly-all</artifactId>
     <version>0.0.1</version>
+    <packaging>pom</packaging>
 
     <modules>
-        <module>common</module>
-        <module>gate</module>
+        <module>mindfly-core</module>
+        <module>mindfly-utils</module>
+        <module>mindfly-service-gate</module>
     </modules>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
-        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-    </parent>
+    <!--<parent>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+        <!--<version>1.5.8.RELEASE</version>-->
+        <!--&lt;!&ndash;<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;&ndash;&gt;-->
+    <!--</parent>-->
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+    <!--<dependencies>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--</dependency>-->
 
-        <!-- swagger related -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.7.0</version>
-        </dependency>
-    </dependencies>
-
-
+        <!--&lt;!&ndash; swagger related &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>io.springfox</groupId>-->
+            <!--<artifactId>springfox-swagger2</artifactId>-->
+            <!--<version>2.7.0</version>-->
+        <!--</dependency>-->
+    <!--</dependencies>-->
 </project>

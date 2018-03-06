@@ -5,3 +5,6 @@
 
 # target igore
 target/
+
+# doc ignore
+mwb.*

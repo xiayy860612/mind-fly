@@ -1,8 +1,8 @@
 package com.s2u2m.mindfly.core.serialization;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * The type Response.
@@ -11,6 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class Response<T extends ResponseData> extends BaseResponse {
     private T data;
 }

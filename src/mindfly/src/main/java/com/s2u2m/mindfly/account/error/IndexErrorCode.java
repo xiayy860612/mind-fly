@@ -1,4 +1,4 @@
-package com.s2u2m.mindfly.services.index;
+package com.s2u2m.mindfly.account.error;
 
 import com.s2u2m.mindfly.core.exception.error.ErrorTypeEnum;
 import com.s2u2m.mindfly.core.exception.error.IErrorCodeEnum;

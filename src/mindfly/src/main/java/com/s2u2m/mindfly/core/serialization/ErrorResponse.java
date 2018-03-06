@@ -1,6 +1,5 @@
 package com.s2u2m.mindfly.core.serialization;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

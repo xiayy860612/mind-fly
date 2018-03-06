@@ -14,10 +14,31 @@
         <version>1.5.10.RELEASE</version>
     </parent>
 
+    <properties>
+        <!--mysql config-->
+        <mysql.jdbc>com.mysql.cj.jdbc.Driver</mysql.jdbc>
+        <mysql.db>mindfly_dev</mysql.db>
+        <mysql.url>jdbc:mysql://localhost:3306/${mysql.db}?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false</mysql.url>
+        <mysql.user>mindfly</mysql.user>
+        <mysql.pwd>mindfly123</mysql.pwd>
+        <mysql.version>6.0.6</mysql.version>
+
+        <!--mybatis related config-->
+        <mybatis.mapper.version>3.5.2</mybatis.mapper.version>
+        <mbg.proj.dir>${basedir}</mbg.proj.dir>
+    </properties>
+
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -34,6 +55,7 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>2.8.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -52,12 +74,36 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!--test related dependencies-->
+        <dependency>
+            <groupId>org.flywaydb.flyway-test-extensions</groupId>
+            <artifactId>flyway-spring-test</artifactId>
+            <version>4.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
 
     <build>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>${basedir}/src/main/resources/config</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<includes>-->
+                    <!--<include>*.properties</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -73,11 +119,33 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.0.7</version>
+                <!--below config only used in dev env-->
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/mindfly_dev</url>
-                    <user>mindfly</user>
-                    <password>mindfly123</password>
+                    <url>${mysql.url}</url>
+                    <user>${mysql.user}</user>
+                    <password>${mysql.pwd}</password>
                 </configuration>
+            </plugin>
+
+            <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-maven-plugin -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.6</version>
+                <configuration>
+                    <configurationFile>${project.basedir}/src/main/resources/mbgConfig.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+                <dependencies>
+                <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>
+
+            </dependencies>
             </plugin>
         </plugins>
     </build>

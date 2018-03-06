@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<properties resource="config/application.properties" />-->
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+        <jdbcConnection driverClass="${mysql.jdbc}"
+                        connectionURL="${mysql.url}"
+                        userId="${mysql.user}"
+                        password="${mysql.pwd}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.s2u2m.mindfly.account.mapper"
+                            targetProject="${mbg.proj.dir}/src/main/java">
+            <!--<property name="enableSubPackages" value="true" />-->
+            <!--<property name="trimStrings" value="true" />-->
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="${mbg.proj.dir}/src/main/resources">
+            <!--<property name="enableSubPackages" value="true" />-->
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.s2u2m.mindfly.account.mapper"
+                             targetProject="${mbg.proj.dir}/src/main/java">
+            <!--<property name="enableSubPackages" value="true" />-->
+        </javaClientGenerator>
+
+        <!--list all tables below-->
+        <table tableName="user_info" domainObjectName="UserInfoEntity" >
+            <columnOverride column="id" javaType="String" />
+            <!--<property name="useActualColumnNames" value="true"/>-->
+            <!--<generatedKey column="id" sqlStatement="mysql" identity="true" />-->
+            <!--<columnOverride column="DATE_FIELD" property="startDate" />-->
+            <!--<ignoreColumn column="FRED" />-->
+            <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+        </table>
+
+        <table tableName="common_account" domainObjectName="CommonAccount">
+            <columnOverride column="user_id" javaType="String" />
+        </table>
+
+    </context>
+</generatorConfiguration>

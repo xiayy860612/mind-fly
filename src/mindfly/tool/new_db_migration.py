@@ -1,5 +1,5 @@
 """
-create flyway db migration file with below format:
+create flyway db db.migration file with below format:
     V<timestamp>__<message>.sql
 
 command line: python new_db_migration <message>
@@ -55,7 +55,7 @@ def create_db_migration_file(message, target_dir):
     print(file_name)
     file_path = os.path.join(target_dir, file_name)
     open(file_path, 'w').close()
-    print("create db migration file in {}", file_path)
+    print("create db db.migration file in {}".format(file_path))
 
     
 
@@ -64,8 +64,8 @@ def help_info():
     python new_db_migration.py -m <message> -t <targe_dir>
 
     Options:
-        -m: migration message
-        -t: target directory, create migration file in it
+        -m: db.migration message
+        -t: target directory, create db.migration file in it
         -h: help info
     """
     print(info)

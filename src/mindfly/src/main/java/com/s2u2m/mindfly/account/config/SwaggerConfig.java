@@ -1,4 +1,4 @@
-package com.s2u2m.mindfly.config;
+package com.s2u2m.mindfly.account.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

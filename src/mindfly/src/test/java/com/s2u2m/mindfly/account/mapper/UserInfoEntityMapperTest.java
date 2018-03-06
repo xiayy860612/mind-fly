@@ -1,0 +1,35 @@
+package com.s2u2m.mindfly.account.mapper;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class UserInfoEntityMapperTest {
+
+    @Autowired
+    UserInfoEntityMapper mapper;
+
+    @Test
+    public void insertUserInfo_success() {
+        UserInfoEntity entity = new UserInfoEntity();
+        entity.setId("123");
+        entity.setNickName("hello");
+        entity.setCreateTime(Date.from(Instant.now()));
+
+        int rst = mapper.insert(entity);
+
+        assertTrue(rst == 1);
+        List<UserInfoEntity> exp = mapper.selectAll();
+        assertTrue(exp.size() == 1);
+    }
+}

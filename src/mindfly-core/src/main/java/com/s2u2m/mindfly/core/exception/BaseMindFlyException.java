@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
-public abstract class BaseMindFlyException extends Exception {
+public abstract class BaseMindFlyException extends RuntimeException {
     private int errCode;
     private String errMsg;
 }

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `user_info` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
+DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `common_account` (
   `username` VARCHAR(256) NOT NULL,
@@ -21,4 +21,4 @@ CREATE TABLE IF NOT EXISTS `common_account` (
   UNIQUE INDEX `account_username_uq` (`username` ASC),
   UNIQUE INDEX `account_email_uq` (`email` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
+DEFAULT CHARACTER SET = utf8;

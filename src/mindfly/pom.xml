@@ -19,6 +19,7 @@
 
         <!--mybatis config-->
         <mbg.proj.dir>${basedir}</mbg.proj.dir>
+        <mbg.mysql.url>jdbc:mysql://localhost:3306/mindfly_dev?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false</mbg.mysql.url>
     </properties>
 
     <dependencies>

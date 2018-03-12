@@ -25,6 +25,7 @@ public class UserInfoEntityMapperTest {
         entity.setId("123");
         entity.setNickName("hello");
         entity.setCreateTime(Date.from(Instant.now()));
+        entity.setDeleteFlag((byte)0);
 
         int rst = mapper.insert(entity);
 

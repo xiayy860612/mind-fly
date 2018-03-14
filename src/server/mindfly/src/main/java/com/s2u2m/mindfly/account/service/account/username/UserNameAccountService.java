@@ -10,6 +10,7 @@ import com.s2u2m.mindfly.account.service.user.UserInfo;
 import com.s2u2m.mindfly.account.service.user.UserRegInfo;
 import com.s2u2m.mindfly.account.service.user.UserService;
 import com.s2u2m.mindfly.core.exception.ExceptionBuilder;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +25,18 @@ public class UserNameAccountService implements
     @Autowired
     UserNameAccountEntityMapper accountEntityMapper;
 
-    private boolean formatOk(String userName, String password) {
-        return true;
-    }
+    @Autowired
+    UserNameFormatChecker userNameFormatChecker;
+
+    @Autowired
+    PasswordFormatChecker passwordFormatChecker;
 
     @Transactional
     @Override
     public UserInfo reg(UserNameRegInfo info) {
-        // check if username and password formatOk
-        if (!this.formatOk(info.getUserName(), info.getPassword())) {
+        // check if account and password formatOk
+        if (!userNameFormatChecker.check(info.getUserName())
+                || !passwordFormatChecker.check(info.getPassword())) {
             throw ExceptionBuilder.build(
                     AccountErrorCode.UserNameOrPasswordInvalid,
                     "UserName or Password invalid");
@@ -58,7 +62,7 @@ public class UserNameAccountService implements
         userRegInfo.setPassword(info.getPassword());
         UserInfo userInfo = userService.reg(userRegInfo);
 
-        // create username account and bind with related user
+        // create account account and bind with related user
         accountEntity = new UserNameAccountEntity();
         accountEntity.setUserId(userInfo.getId());
         accountEntity.setUsername(info.getUserName());

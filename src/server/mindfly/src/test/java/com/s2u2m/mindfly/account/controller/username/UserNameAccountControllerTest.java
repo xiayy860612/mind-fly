@@ -11,6 +11,7 @@ import com.s2u2m.mindfly.account.token.UserTokenData;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class UserNameAccountControllerTest extends BaseAccountServiceTest {
 
-    @MockBean
+    @Autowired
     private UserNameAccountService accountService;
 
     @MockBean
@@ -38,7 +39,6 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
         UserInfo expected = new UserInfo();
         expected.setId("1");
         expected.setNickName(userName);
-        when(accountService.reg(any(UserNameRegInfo.class))).thenReturn(expected);
 
         String token = "sadf";
         when(userTokenOp.token(any(UserTokenData.class))).thenReturn(token);
@@ -49,7 +49,7 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
                 .setPassword(pwd).setPwdConfirm(pwd);
         ObjectMapper mapper = new ObjectMapper();
 
-        MvcResult result = mockMvc.perform(post("/username/reg")
+        MvcResult result = mockMvc.perform(post("/account/reg")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(reqDTO))
         ).andExpect(status().isOk()).andReturn();
@@ -69,7 +69,7 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
         UserNameLoginReqDTO reqDTO = new UserNameLoginReqDTO()
                 .userName(userName).password(pwd);
 
-        RequestBuilder builder = post("/username/log")
+        RequestBuilder builder = post("/account/log")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonSerializer.writeValueAsString(reqDTO));
 

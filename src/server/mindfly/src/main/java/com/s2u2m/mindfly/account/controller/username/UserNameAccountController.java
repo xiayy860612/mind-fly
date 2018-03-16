@@ -1,11 +1,12 @@
 package com.s2u2m.mindfly.account.controller.username;
 
 import com.s2u2m.mindfly.account.controller.LoginRespDTO;
-import com.s2u2m.mindfly.account.service.account.ILoginStrategy;
+import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 import com.s2u2m.mindfly.account.service.account.username.UserNameAccountService;
-import com.s2u2m.mindfly.account.service.account.username.UserNameLoginInfo;
-import com.s2u2m.mindfly.account.service.account.username.UserNameLoginStratety;
-import com.s2u2m.mindfly.account.service.account.username.UserNameRegInfo;
+import com.s2u2m.mindfly.account.service.account.username.login.UserNameLoginInfo;
+import com.s2u2m.mindfly.account.service.account.username.login.UserNameLoginStrategy;
+import com.s2u2m.mindfly.account.service.account.username.reg.UserNameRegInfo;
+import com.s2u2m.mindfly.account.service.account.username.reg.UserNameRegStrategy;
 import com.s2u2m.mindfly.account.service.user.UserInfo;
 import com.s2u2m.mindfly.account.token.IUserTokenOp;
 import com.s2u2m.mindfly.account.token.UserTokenData;
@@ -22,6 +23,12 @@ public class UserNameAccountController {
     @Autowired
     IUserTokenOp userTokenOp;
 
+    @Autowired
+    UserNameLoginStrategy userNameLoginStrategy;
+
+    @Autowired
+    UserNameRegStrategy userNameRegStrategy;
+
     @PostMapping(value = "/reg")
     public LoginRespDTO reg(@RequestBody UserNameRegReqDTO data) {
 
@@ -29,31 +36,40 @@ public class UserNameAccountController {
                 .setUserName(data.getUserName())
                 .setPassword(data.getPassword())
                 .setPasswordConfirm(data.getPwdConfirm());
-        UserInfo info = accountService.reg(regInfo);
+        UserInfoEntity info = accountService.reg(
+                userNameRegStrategy, regInfo);
 
         // generate token
         UserTokenData tokenData = new UserTokenData()
                 .setInfo(info);
         String token = userTokenOp.token(tokenData);
 
+        UserInfo userInfo = new UserInfo()
+                .setId(info.getId())
+                .setNickName(info.getNickName());
         LoginRespDTO respDTO = new LoginRespDTO()
-                .setInfo(info).setToken(token);
+                .setInfo(userInfo).setToken(token);
         return respDTO;
     }
 
     @PostMapping(value = "/login")
     public LoginRespDTO login(@RequestBody UserNameLoginReqDTO data) {
-        ILoginStrategy<UserNameLoginInfo> strategy = new UserNameLoginStratety();
         UserNameLoginInfo loginInfo = new UserNameLoginInfo()
                 .setUserName(data.getUserName())
                 .setPassword(data.getPassword());
-        UserInfo info = accountService.login(strategy, loginInfo);
+        UserInfoEntity info = accountService.login(
+                userNameLoginStrategy, loginInfo);
 
         // generate token
-        UserTokenData tokenData = new UserTokenData();
+        UserTokenData tokenData = new UserTokenData()
+                .setInfo(info);
         String token = userTokenOp.token(tokenData);
 
-        LoginRespDTO respDTO = new LoginRespDTO().setInfo(info).setToken(token);
+        UserInfo userInfo = new UserInfo()
+                .setId(info.getId())
+                .setNickName(info.getNickName());
+        LoginRespDTO respDTO = new LoginRespDTO()
+                .setInfo(userInfo).setToken(token);
         return respDTO;
     }
 

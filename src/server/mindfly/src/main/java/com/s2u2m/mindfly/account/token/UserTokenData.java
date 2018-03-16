@@ -1,6 +1,6 @@
 package com.s2u2m.mindfly.account.token;
 
-import com.s2u2m.mindfly.account.service.user.UserInfo;
+import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 import com.s2u2m.mindfly.core.token.AbTokenData;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +10,5 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 public class UserTokenData extends AbTokenData {
-    private UserInfo info;
+    private UserInfoEntity info;
 }

@@ -3,14 +3,11 @@ package com.s2u2m.mindfly.account.service.account;
 import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 import com.s2u2m.mindfly.account.service.user.UserInfo;
 
-public interface IAccountManager<
-        RT extends AbRegInfo,
-        LT extends AbLoginInfo,
-        AT> {
+public interface IAccountManager<AT> {
 
-    UserInfo reg(RT info);
+    <RT extends AbRegInfo> UserInfoEntity reg(IRegStrategy<RT> strategy, RT info);
 
-    UserInfo login(ILoginStrategy<LT> strategy, LT info);
+    <LT extends AbLoginInfo> UserInfoEntity login(ILoginStrategy<LT> strategy, LT info);
 
     void bind(UserInfoEntity entity, AT account);
 

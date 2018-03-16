@@ -1,7 +1,10 @@
 package com.s2u2m.mindfly.account.service.account.username;
 
 import com.s2u2m.mindfly.account.BaseAccountServiceTest;
+import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 import com.s2u2m.mindfly.account.mapper.UserNameAccountEntityMapper;
+import com.s2u2m.mindfly.account.service.account.username.reg.UserNameRegInfo;
+import com.s2u2m.mindfly.account.service.account.username.reg.UserNameRegStrategy;
 import com.s2u2m.mindfly.account.service.user.UserInfo;
 import com.s2u2m.mindfly.account.service.user.UserRegInfo;
 import com.s2u2m.mindfly.account.service.user.UserService;
@@ -25,6 +28,9 @@ public class UserNameAccountServiceTest extends BaseAccountServiceTest {
     @Autowired
     UserNameAccountService accountService;
 
+    @Autowired
+    UserNameRegStrategy userNameRegStrategy;
+
     @Test
     public void reg() throws Exception {
         String id = "1";
@@ -32,7 +38,8 @@ public class UserNameAccountServiceTest extends BaseAccountServiceTest {
         String pwd = "xiayy@123456";
 
         when(userService.reg(any(UserRegInfo.class)))
-                .thenReturn(new UserInfo().setId(id).setNickName(userName));
+                .thenReturn(new UserInfoEntity()
+                        .setId(id).setNickName(userName));
         when(accountEntityMapper.selectByUserName(anyString()))
                 .thenReturn(null);
 
@@ -40,14 +47,11 @@ public class UserNameAccountServiceTest extends BaseAccountServiceTest {
                 .setUserName(userName)
                 .setPassword(pwd)
                 .setPasswordConfirm(pwd);
-        UserInfo rst = accountService.reg(regInfo);
+        UserInfoEntity rst = accountService.reg(
+                userNameRegStrategy, regInfo);
 
         Assert.assertEquals(id, rst.getId());
         Assert.assertEquals(userName, rst.getNickName());
-    }
-
-    @Test
-    public void login() throws Exception {
     }
 
     @Test

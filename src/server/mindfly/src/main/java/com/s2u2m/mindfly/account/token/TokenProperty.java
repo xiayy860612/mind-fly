@@ -13,4 +13,5 @@ import org.springframework.stereotype.Component;
 @Setter
 public class TokenProperty {
     private int expireMs;
+    private String key;
 }

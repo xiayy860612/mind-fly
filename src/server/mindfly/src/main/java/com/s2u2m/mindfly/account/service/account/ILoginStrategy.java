@@ -1,8 +1,8 @@
 package com.s2u2m.mindfly.account.service.account;
 
-import com.s2u2m.mindfly.account.service.user.UserInfo;
+import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 
 public interface ILoginStrategy<LT extends AbLoginInfo> {
 
-    UserInfo login(LT info);
+    UserInfoEntity login(LT info);
 }

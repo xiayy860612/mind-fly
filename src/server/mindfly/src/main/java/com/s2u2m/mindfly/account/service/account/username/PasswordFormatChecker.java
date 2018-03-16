@@ -1,6 +1,7 @@
 package com.s2u2m.mindfly.account.service.account.username;
 
-import com.s2u2m.mindfly.account.service.account.IFormatChecker;
+import com.s2u2m.mindfly.account.service.account.username.UserNameAccountProperty;
+import com.s2u2m.mindfly.account.utils.formatchecker.IFormatChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

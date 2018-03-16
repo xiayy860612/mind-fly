@@ -33,8 +33,5 @@ public class UserInfoEntityMapperTest {
         int rst = mapper.insert(entity);
 
         assertTrue(rst == 1);
-
-        List<UserInfoEntity> exp = mapper.selectAll();
-        assertTrue(exp.size() == 1);
     }
 }

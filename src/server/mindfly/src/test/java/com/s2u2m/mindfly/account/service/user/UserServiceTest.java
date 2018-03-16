@@ -1,6 +1,7 @@
 package com.s2u2m.mindfly.account.service.user;
 
 import com.s2u2m.mindfly.account.BaseAccountServiceTest;
+import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserServiceTest extends BaseAccountServiceTest {
         infoEntity.setNickName(nickName);
         infoEntity.setPassword(pwd);
 
-        UserInfo rst = userService.reg(infoEntity);
+        UserInfoEntity rst = userService.reg(infoEntity);
 
         Assert.assertEquals(nickName, rst.getNickName());
     }

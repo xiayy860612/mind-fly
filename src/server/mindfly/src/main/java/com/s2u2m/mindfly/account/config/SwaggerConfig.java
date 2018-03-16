@@ -27,12 +27,13 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
             .apiInfo(apiInfo())
             .select()
-            .apis(RequestHandlerSelectors.any())
+            .apis(RequestHandlerSelectors.basePackage("com.s2u2m.mindfly.account.controller"))
             .paths(PathSelectors.any())
             .build();
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().build();
+        return new ApiInfoBuilder()
+                .build();
     }
 }

@@ -18,7 +18,7 @@ public class UserService {
     UserInfoEntityMapper userInfoEntityMapper;
 
     @Transactional
-    public UserInfo reg(UserRegInfo info) {
+    public UserInfoEntity reg(UserRegInfo info) {
         String id = uidGenerator.nextIdByString();
 
         UserInfoEntity entity = new UserInfoEntity();
@@ -27,8 +27,7 @@ public class UserService {
         entity.setNickName(info.getNickName());
         entity.setPassword(info.getPassword());
         userInfoEntityMapper.insert(entity);
-        return new UserInfo()
-                .setId(id)
-                .setNickName(info.getNickName());
+
+        return entity;
     }
 }

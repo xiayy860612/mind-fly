@@ -11,9 +11,14 @@ import com.s2u2m.mindfly.core.exception.error.IErrorCodeEnum;
 public enum AccountErrorCode implements IErrorCodeEnum {
     Unknown(1),
 
+    LoginPasswordIncorrect(31),
+
+    // UserName Account related Error
     UserNameOrPasswordInvalid(101),
     UserNameAccountAlreadyExisted(102),
-    UserNameAccountRegPwdNotMatched(101),
+    UserNameAccountRegPwdNotMatched(103),
+    UserNameNotExisted(104),
+
 
     ;
 

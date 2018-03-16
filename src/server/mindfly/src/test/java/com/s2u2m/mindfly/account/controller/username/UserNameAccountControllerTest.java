@@ -3,7 +3,10 @@ package com.s2u2m.mindfly.account.controller.username;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.s2u2m.mindfly.account.BaseAccountServiceTest;
 import com.s2u2m.mindfly.account.controller.LoginRespDTO;
+import com.s2u2m.mindfly.account.service.account.ILoginStrategy;
 import com.s2u2m.mindfly.account.service.account.username.UserNameAccountService;
+import com.s2u2m.mindfly.account.service.account.username.UserNameLoginInfo;
+import com.s2u2m.mindfly.account.service.account.username.UserNameLoginStratety;
 import com.s2u2m.mindfly.account.service.account.username.UserNameRegInfo;
 import com.s2u2m.mindfly.account.service.user.UserInfo;
 import com.s2u2m.mindfly.account.token.IUserTokenOp;
@@ -11,6 +14,7 @@ import com.s2u2m.mindfly.account.token.UserTokenData;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -25,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class UserNameAccountControllerTest extends BaseAccountServiceTest {
 
-    @Autowired
+    @MockBean
     private UserNameAccountService accountService;
 
     @MockBean
@@ -33,15 +37,17 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
 
     @Test
     public void reg() throws Exception {
-        String userName = "hello";
-        String pwd = "123456";
+        String id = "123456";
+        String userName = "xiayy860612";
+        String pwd = "xiayy@123456";
 
         UserInfo expected = new UserInfo();
-        expected.setId("1");
+        expected.setId(id);
         expected.setNickName(userName);
-
-        String token = "sadf";
-        when(userTokenOp.token(any(UserTokenData.class))).thenReturn(token);
+        when(accountService.reg(any(UserNameRegInfo.class)))
+                .thenReturn(expected);
+        when(userTokenOp.token(any(UserTokenData.class)))
+                .thenReturn(id);
 
         // execute
         UserNameRegReqDTO reqDTO = new UserNameRegReqDTO()
@@ -49,7 +55,7 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
                 .setPassword(pwd).setPwdConfirm(pwd);
         ObjectMapper mapper = new ObjectMapper();
 
-        MvcResult result = mockMvc.perform(post("/account/reg")
+        MvcResult result = mockMvc.perform(post("/username/reg")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(reqDTO))
         ).andExpect(status().isOk()).andReturn();
@@ -57,19 +63,26 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
         LoginRespDTO respDTO = mapper.readValue(
                 result.getResponse().getContentAsString(), LoginRespDTO.class);
 
-        Assert.assertEquals(token, respDTO.getToken());
+        Assert.assertEquals(id, respDTO.getToken());
         Assert.assertEquals(userName, respDTO.getInfo().getNickName());
     }
 
-    @Ignore
     @Test
     public void login() throws Exception {
+        String id = "123456";
         String userName = "hello";
         String pwd = "123456";
-        UserNameLoginReqDTO reqDTO = new UserNameLoginReqDTO()
-                .userName(userName).password(pwd);
 
-        RequestBuilder builder = post("/account/log")
+        when(accountService.login(any(UserNameLoginStratety.class), any(UserNameLoginInfo.class)))
+                .thenReturn(new UserInfo().setId(id).setNickName(userName));
+        when(userTokenOp.token(any(UserTokenData.class)))
+                .thenReturn(id);
+
+        UserNameLoginReqDTO reqDTO = new UserNameLoginReqDTO()
+                .setUserName(userName).setPassword(pwd);
+
+        ObjectMapper mapper = new ObjectMapper();
+        RequestBuilder builder = post("/username/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonSerializer.writeValueAsString(reqDTO));
 
@@ -79,7 +92,8 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
         LoginRespDTO respDTO = jsonSerializer.readValue(
                 rst.getResponse().getContentAsString(), LoginRespDTO.class);
 
-        Assert.assertTrue(!respDTO.getToken().isEmpty());
+        Assert.assertEquals(id, respDTO.getToken());
+        Assert.assertEquals(userName, respDTO.getInfo().getNickName());
     }
 
 }

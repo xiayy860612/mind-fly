@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Accessors(fluent = true)
+@Accessors(chain = true)
 public class UserNameLoginReqDTO {
     private String userName;
     private String password;

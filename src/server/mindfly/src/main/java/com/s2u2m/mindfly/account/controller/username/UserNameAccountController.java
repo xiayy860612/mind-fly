@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/account")
+@RequestMapping(value = "/username")
 public class UserNameAccountController {
 
     @Autowired
@@ -32,7 +32,8 @@ public class UserNameAccountController {
         UserInfo info = accountService.reg(regInfo);
 
         // generate token
-        UserTokenData tokenData = new UserTokenData();
+        UserTokenData tokenData = new UserTokenData()
+                .setInfo(info);
         String token = userTokenOp.token(tokenData);
 
         LoginRespDTO respDTO = new LoginRespDTO()
@@ -44,8 +45,8 @@ public class UserNameAccountController {
     public LoginRespDTO login(@RequestBody UserNameLoginReqDTO data) {
         ILoginStrategy<UserNameLoginInfo> strategy = new UserNameLoginStratety();
         UserNameLoginInfo loginInfo = new UserNameLoginInfo()
-                .setUserName(data.userName())
-                .setPassword(data.password());
+                .setUserName(data.getUserName())
+                .setPassword(data.getPassword());
         UserInfo info = accountService.login(strategy, loginInfo);
 
         // generate token

@@ -28,8 +28,8 @@ public class UserNameAccountServiceTest extends BaseAccountServiceTest {
     @Test
     public void reg() throws Exception {
         String id = "1";
-        String userName = "hello";
-        String pwd = "123456";
+        String userName = "xiayy860612";
+        String pwd = "xiayy@123456";
 
         when(userService.reg(any(UserRegInfo.class)))
                 .thenReturn(new UserInfo().setId(id).setNickName(userName));

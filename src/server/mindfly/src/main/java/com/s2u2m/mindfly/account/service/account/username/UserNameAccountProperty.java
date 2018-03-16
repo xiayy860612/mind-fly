@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:config/account/username-limit.properties")
-@ConfigurationProperties(prefix = "account")
+@ConfigurationProperties(prefix = "mindfly.account")
 @Getter
 @Setter
 public class UserNameAccountProperty {

@@ -1,6 +1,7 @@
 package com.s2u2m.mindfly.account.mapper;
 
 import com.s2u2m.mindfly.account.entity.UserInfoEntity;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class UserInfoEntityMapperTest {
     @Autowired
     UserInfoEntityMapper mapper;
 
+    @Ignore
     @Test
     public void insertUserInfo_success() {
         UserInfoEntity entity = new UserInfoEntity();
@@ -31,6 +33,7 @@ public class UserInfoEntityMapperTest {
         int rst = mapper.insert(entity);
 
         assertTrue(rst == 1);
+
         List<UserInfoEntity> exp = mapper.selectAll();
         assertTrue(exp.size() == 1);
     }

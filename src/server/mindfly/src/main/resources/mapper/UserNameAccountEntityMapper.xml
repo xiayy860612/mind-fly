@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.s2u2m.mindfly.account.mapper.UserNameAccountEntityMapper">
+  <resultMap id="UserNameAccountEntityMap" type="UserNameAccountEntity">
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+
+  <sql id="all_fields">
+    user_id, username
+  </sql>
+
+  <insert id="insert" parameterType="UserNameAccountEntity">
+    insert into username_account (user_id, username)
+    values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR})
+  </insert>
+
+
+  <select id="selectByUserName" resultMap="UserNameAccountEntityMap">
+    select <include refid="all_fields" />
+    from username_account
+    where username = #{username}
+  </select>
+</mapper>

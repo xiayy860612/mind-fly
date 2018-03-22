@@ -5,3 +5,7 @@
 
 # target igore
 target/
+logs/
+
+# doc ignore
+mwb.*

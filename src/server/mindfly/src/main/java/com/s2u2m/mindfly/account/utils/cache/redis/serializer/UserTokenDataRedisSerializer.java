@@ -1,4 +1,4 @@
-package com.s2u2m.mindfly.account.token.redis;
+package com.s2u2m.mindfly.account.utils.cache.redis.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.s2u2m.mindfly.account.token.UserTokenData;
@@ -9,7 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class RedisDataJsonSerializer implements RedisSerializer<UserTokenData> {
+public class UserTokenDataRedisSerializer implements RedisSerializer<UserTokenData> {
 
     @Override
     public byte[] serialize(UserTokenData dt) throws SerializationException {

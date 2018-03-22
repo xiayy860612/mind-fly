@@ -19,7 +19,12 @@ public enum AccountErrorCode implements IErrorCodeEnum {
     UserNameAccountRegPwdNotMatched(103),
     UserNameNotExisted(104),
 
-
+    // Phone Account
+    PhoneInvalid(201),
+    PhoneAccountAlreadyExisted(202),
+    PhoneRegCodeNotExisted(203),
+    PhoneRegCodeNotMatched(204),
+    PhoneAccountNotExisted(205),
     ;
 
     @Override

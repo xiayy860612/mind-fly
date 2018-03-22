@@ -50,15 +50,7 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
         UserNameRegReqDTO reqDTO = new UserNameRegReqDTO()
                 .setUserName(userName)
                 .setPassword(pwd).setPwdConfirm(pwd);
-        ObjectMapper mapper = new ObjectMapper();
-
-        MvcResult result = mockMvc.perform(post("/username/reg")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(reqDTO))
-        ).andExpect(status().isOk()).andReturn();
-
-        LoginRespDTO respDTO = mapper.readValue(
-                result.getResponse().getContentAsString(), LoginRespDTO.class);
+        LoginRespDTO respDTO = httpPost("/username/reg", reqDTO, LoginRespDTO.class);
 
         Assert.assertEquals(id, respDTO.getToken());
         Assert.assertEquals(userName, respDTO.getInfo().getNickName());
@@ -82,12 +74,12 @@ public class UserNameAccountControllerTest extends BaseAccountServiceTest {
         ObjectMapper mapper = new ObjectMapper();
         RequestBuilder builder = post("/username/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonSerializer.writeValueAsString(reqDTO));
+                .content(mapper.writeValueAsString(reqDTO));
 
         MvcResult rst = mockMvc.perform(builder)
                 .andExpect(status().isOk()).andReturn();
 
-        LoginRespDTO respDTO = jsonSerializer.readValue(
+        LoginRespDTO respDTO = mapper.readValue(
                 rst.getResponse().getContentAsString(), LoginRespDTO.class);
 
         Assert.assertEquals(id, respDTO.getToken());

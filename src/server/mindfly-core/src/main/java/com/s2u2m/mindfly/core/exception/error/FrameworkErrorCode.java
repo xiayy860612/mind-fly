@@ -1,7 +1,8 @@
 package com.s2u2m.mindfly.core.exception.error;
 
-public enum UnknownErrorCode implements IErrorCodeEnum {
-    Unknown(0)
+public enum FrameworkErrorCode implements IErrorCodeEnum {
+    Unknown(0),
+    ComponentError(1),
     ;
 
     @Override
@@ -15,7 +16,7 @@ public enum UnknownErrorCode implements IErrorCodeEnum {
     }
 
     private int code = 0;
-    UnknownErrorCode(int code) {
+    FrameworkErrorCode(int code) {
         this.code = code;
     }
 }

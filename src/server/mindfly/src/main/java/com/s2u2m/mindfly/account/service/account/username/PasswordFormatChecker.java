@@ -1,6 +1,6 @@
 package com.s2u2m.mindfly.account.service.account.username;
 
-import com.s2u2m.mindfly.account.service.account.username.UserNameAccountProperty;
+import com.s2u2m.mindfly.account.service.account.AccountConfigProperty;
 import com.s2u2m.mindfly.account.utils.formatchecker.IFormatChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class PasswordFormatChecker implements IFormatChecker<String> {
 
     @Autowired
-    UserNameAccountProperty accountProperty;
+    AccountConfigProperty accountProperty;
 
     private static final String specialChars = "!@#$%^&*()-+=";
 

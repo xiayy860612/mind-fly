@@ -6,4 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 public interface PhoneAccountMapper {
    int insert(PhoneAccountEntity record);
+
+   PhoneAccountEntity selectByPhone(String phone);
 }

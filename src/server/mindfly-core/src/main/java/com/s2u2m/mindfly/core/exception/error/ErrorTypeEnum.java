@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum ErrorTypeEnum {
 
     NoError(0),
-    Unknown(1),
+    FrameworkError(1),
     // error raised in runtime
     ServerError(2),
 

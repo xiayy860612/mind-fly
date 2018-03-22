@@ -1,8 +1,10 @@
 package com.s2u2m.mindfly.account.token.redis;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.s2u2m.mindfly.account.BaseAccountServiceTest;
 import com.s2u2m.mindfly.account.entity.UserInfoEntity;
 import com.s2u2m.mindfly.account.service.user.UserInfo;
+import com.s2u2m.mindfly.account.token.IUserTokenOp;
 import com.s2u2m.mindfly.account.token.TokenProperty;
 import com.s2u2m.mindfly.account.token.UserTokenData;
 import org.junit.Before;
@@ -10,26 +12,20 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
 public class RedisTokenOpTest extends BaseAccountServiceTest {
 
     @Autowired
-    TokenProperty property;
-
-    @Autowired
-    RedisTemplate<String, UserTokenData> redisTemplate;
-
-    private RedisTokenOp tokenOp;
+    IUserTokenOp tokenOp;
 
     private String expToken = "123456";
-
-    @Before
-    public void setUp() {
-        tokenOp = new RedisTokenOp(property, redisTemplate);
-    }
 
     @Test
     public void token() throws Exception {
@@ -43,5 +39,4 @@ public class RedisTokenOpTest extends BaseAccountServiceTest {
         UserTokenData rst = tokenOp.data(tokenActual);
         assertEquals(expToken, rst.getInfo().getId());
     }
-
 }

@@ -3,6 +3,8 @@ package com.s2u2m.mindfly.account.token.redis;
 import com.s2u2m.mindfly.account.token.IUserTokenOp;
 import com.s2u2m.mindfly.account.token.TokenProperty;
 import com.s2u2m.mindfly.account.token.UserTokenData;
+import com.s2u2m.mindfly.account.utils.cache.redis.RedisCache;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.UUID;
@@ -12,13 +14,12 @@ public class RedisTokenOp implements IUserTokenOp {
 
     TokenProperty tokenProperty;
 
-    RedisTemplate<String, UserTokenData> redis;
+    @Autowired
+    RedisCache<UserTokenData> redisCache;
 
     public RedisTokenOp(
-            TokenProperty tokenProperty,
-            RedisTemplate<String, UserTokenData> redis) {
+            TokenProperty tokenProperty) {
         this.tokenProperty = tokenProperty;
-        this.redis = redis;
     }
 
     private String key(String token) {
@@ -28,13 +29,12 @@ public class RedisTokenOp implements IUserTokenOp {
     @Override
     public String token(UserTokenData data) {
         String token = UUID.randomUUID().toString();
-        redis.opsForValue().set(key(token), data,
-                tokenProperty.getExpireMs(), TimeUnit.MILLISECONDS);
+        redisCache.set(key(token), data, tokenProperty.getExpireMs());
         return token;
     }
 
     @Override
     public UserTokenData data(String token) {
-        return redis.opsForValue().get(key(token));
+        return redisCache.get(key(token), UserTokenData.class);
     }
 }
